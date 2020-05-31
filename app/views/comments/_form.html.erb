@@ -1,0 +1,13 @@
+<%= form_for([@post, @post.comments.build]) do |f| %>
+
+	<span>
+		<%= f.label :data, value: "Add new comment"%>
+		<%= f.text_area :data %>
+	</span>
+	<span>
+		<%= f.hidden_field :user_info, value: current_user.email %>
+	</span>
+
+	<br>
+	<span><%= f.submit %></span>
+<% end %>

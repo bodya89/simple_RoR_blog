@@ -1,0 +1,45 @@
+
+
+<div id="user_nav">
+    <% if user_signed_in? %>
+        Signed in as <%= current_user.email %>
+        <br> 
+        <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
+        <h3><%= link_to 'Create New Post', new_post_path %></h3>
+    <% else %>
+        <%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %>
+    <% end %>
+</div>
+
+
+
+
+<br>
+<div id="posts">
+  <h1>Posts</h1>
+  <hr>
+  <div id="post_view">
+    <% @posts.each do |post| %>
+      
+      <h2><%= post.title %></h2>
+      <%= link_to 'Show post', post %>
+      <br>
+      <% if user_signed_in? and current_user.id == post.user.id%>
+        <%= link_to 'Edit', edit_post_path(post) %>
+        <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <br>
+        <span>It`s your post</span>
+      <% else %>
+        <span>Created by <%= post.user.email %></span>
+      <% end %>
+      <span>  <%= time_ago_in_words(post.created_at) + " ago"%></span>
+      <br>
+      <hr>
+    <% end %>
+  </div>
+
+</div>
+<br>
+
+
+<!-- <p id="notice"><%= notice %></p> -->
